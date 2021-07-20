@@ -26,26 +26,22 @@
 
 # In[1]:
 
-
 import matplotlib.pyplot as plt  # plots
 import numpy as np  # vectors and matrices
 import pandas as pd  # tables and data manipulations
-import seaborn as sns  # more plots
 import datetime as dt
 
 import warnings  # `do not disturbe` mode
 from itertools import product  # some useful functions
 
-import scipy.stats as scs
 import statsmodels.api as sm
-import statsmodels.formula.api as smf  # statistics and econometrics
 import statsmodels.tsa.api as smt
-from dateutil.relativedelta import relativedelta  # working with dates with style
-from scipy.optimize import minimize  # for function minimization
 from tqdm import tqdm_notebook
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import pickle
-import json
+from flask import Flask, jsonify, request
+
+
 warnings.filterwarnings("ignore")
 
 # %matplotlib inline
