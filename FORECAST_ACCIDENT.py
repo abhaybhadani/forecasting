@@ -518,7 +518,9 @@ def load_predict():
     if(request.method == 'POST'):
         year=int(request.args.get('year'))
         month=int(request.args.get('month'))
-        if year==2021 & month>=1 & month <=12:
+        print(year, month)
+        if (year==2021) & (month>=1) & (month <=12):
+            print('Inside if')
             values = df_forecast[(df_forecast.year==year) & (df_forecast.month==month)]['pred_values'].values[0]
             return json.dumps({'prediction':values})
         else:
