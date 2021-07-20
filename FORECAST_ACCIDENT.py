@@ -515,15 +515,14 @@ app = Flask(__name__)
 
 @app.route('/predict', methods = ['GET', 'POST']) 
 def load_predict():
-    print('load_predict function')
     if(request.method == 'POST'):
         year=int(request.args.get('year'))
         month=int(request.args.get('month'))
-        print("year = ", year)
-        print("month = ", month)
-        values = df_forecast[(df_forecast.year==year) & (df_forecast.month==month)]['pred_values'].values[0]
-        return json.dumps({'values':values})
-    
+        if year==2021 & month>=1 & month <=12:
+            values = df_forecast[(df_forecast.year==year) & (df_forecast.month==month)]['pred_values'].values[0]
+            return json.dumps({'prediction':values})
+        else:
+            return json.dumps({'prediction':'Values not in range'})
     
 
 if __name__ == '__main__':
