@@ -67,7 +67,7 @@ pd.options.display.max_rows = 500
 # In[4]:
 
 
-df = pd.read_csv('dataset1.csv')
+df = pd.read_csv('data/dataset1.csv')
 
 
 # In[5]:
@@ -443,15 +443,19 @@ def plot_forecast(series, model, n_steps):
     plt.plot(forecast, color="r", label="model")
     plt.axvspan(data.index[-1], forecast.index[-1], alpha=0.5, color="lightgrey")
     plt.plot(data.actual, label="actual")
+    plt.xlabel('YEAR')
+    plt.ylabel('Number of Accidents')
+    plt.title('Actual vs Forecasted :  Alkoholunfalle and insgesamt case')
     plt.legend()
-    plt.grid(True)
+    plt.grid(False)
+    plt.savefig('images/alkoholunfalle_insgesamt_predicted.jpg')
     return (pd.DataFrame(forecast))
 
 
 # In[35]:
 
 
-df_forecast = plot_forecast(df_1[(df_1.MONTH <= 202012)][['VALUE']], best_model, 11)[-12:]
+df_forecast = plot_forecast(df_1[(df_1.MONTH <= 202012)][['VALUE']], best_model, 11)
 df_forecast.columns=['pred_values']
 
 
@@ -519,7 +523,7 @@ def load_predict():
         year=int(request.args.get('year'))
         month=int(request.args.get('month'))
         print(year, month)
-        if (year==2021) & (month>=1) & (month <=12):
+        if (year>=2000) & (year<=2021) & (month>=1) & (month <=12):
             print('Inside if')
             values = df_forecast[(df_forecast.year==year) & (df_forecast.month==month)]['pred_values'].values[0]
             return json.dumps({'prediction':values})
